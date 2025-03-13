@@ -4,6 +4,7 @@ import {signUp, signIn, signOut} from "../controller/auth.controller.js";
 const authRoutes = Router();
 
 /**
+ *
  * @route POST /api/v1/auth
  * @desc allows a user to create an account [ create a new user ]
  * @public

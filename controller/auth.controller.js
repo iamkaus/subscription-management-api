@@ -19,6 +19,13 @@ export const signUp = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
 
+        if (!username || !email || !password) {
+            res.status(400).json({
+                success: false,
+                error: 'Username or email or password is missing'
+            })
+        }
+
         const existingUser = await userModel.findOne({email});
         if (existingUser) {
             res.status(409).json({
