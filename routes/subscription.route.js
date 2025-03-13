@@ -1,49 +1,63 @@
 import { Router } from 'express';
+import {authorize} from "../middleware/auth.middleware.js";
+import {createSubscription, getSubscription, getUserSubscription} from "../controller/subscription.controller.js";
 const subscriptionRoutes = Router();
 
-subscriptionRoutes.get('/get-subscriptions', async (req, res) => {
-    res.send({
-        title: 'Get all the subscriptions',
-    })
-}); // secure route possibly admin only
+/**
+ * @route GET /api/v1/subscription/get-subscription/:id
+ * @desc fetches a subscription with provided id, lets one know which user the subscription with the provided id belongs to
+ * @private
+ */
 
-subscriptionRoutes.get('/get-subscriptions/:id', async (req, res) => {
-    res.send({
-        title: 'Get subscription details',
-    })
-}); // secure route possibly admin only
+subscriptionRoutes.get('/get-subscription/:id', authorize, getSubscription);
 
-subscriptionRoutes.get('/user/:id', async (req, res) => {
-    res.send({
-        title: 'Get all user subscriptions',
-    })
-});
+/**
+ * @route GET /api/v1/subscription/user-subscription/:id
+ * @desc fetches all the subscriptions of a user with provided user id
+ * @private
+ */
 
-subscriptionRoutes.post('/new-subscription', async (req, res) => {
-    res.send({
-        title: 'Create new subscription',
-    })
-});
+subscriptionRoutes.get('/user-subscription/:id', authorize, getUserSubscription);
 
-subscriptionRoutes.put('/update-subscription/:id', async (req, res) => {
+/**
+ * @route POST /api/v1/subscription/new-subscription
+ * @desc creates a new subscription for a user
+ * @private
+ */
+
+subscriptionRoutes.post('/new-subscription', authorize, createSubscription);
+
+/**
+ * @route PUT /api/v1/subscription/update-subscription/:id
+ * @desc updates a subscription with provided id
+ * @private
+ */
+
+subscriptionRoutes.put('/update-subscription/:id', authorize,async (req, res) => {
     res.send({
         title: 'Update subscription',
     })
 });
 
-subscriptionRoutes.delete('/delete-subscription/:id', async (req, res) => {
+/**
+ * @route DELETE /api/v1/subscription/delete-subscription/:id
+ * @desc deletes a subscription with provided id
+ * @private
+ */
+
+subscriptionRoutes.delete('/delete-subscription/:id', authorize,async (req, res) => {
     res.send({
         title: 'Delete subscription',
     })
 });
 
-subscriptionRoutes.put('/update-subscription/:id/cancel', async (req, res) => {
-    res.send({
-        title: 'Update subscription',
-    })
-});
+/**
+ * @route GET /api/v1/subscription/upcoming-renewals
+ * @desc fetches subscription with upcoming renewals
+ * @private
+ */
 
-subscriptionRoutes.get('/upcoming-renewals', async (req, res) => {
+subscriptionRoutes.get('/upcoming-renewals', authorize,async (req, res) => {
     res.send({
         title: 'Get upcoming renewals',
     })

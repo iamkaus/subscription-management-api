@@ -35,6 +35,9 @@ export const getUser = async (req, res, next) => {
  */
 
 export const getUserByID = async (req, res, next) => {
+
+
+
     try {
         const user = await userModel.findById(req.params.id).select('-password');
 
@@ -61,6 +64,7 @@ export const getUserByID = async (req, res, next) => {
  */
 
 export const updateUserByID = async (req, res, next) => {
+
     try {
         const { email, password } = req.body;
         if (!email && !password) {
