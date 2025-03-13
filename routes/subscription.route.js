@@ -1,6 +1,14 @@
 import { Router } from 'express';
 import {authorize} from "../middleware/auth.middleware.js";
-import {createSubscription, getSubscription, getUserSubscription} from "../controller/subscription.controller.js";
+import {
+    createSubscription,
+    deleteSubscription,
+    getSubscription,
+    getUpcomingSubscription,
+    getUserSubscription,
+    updateSubscription
+} from "../controller/subscription.controller.js";
+
 const subscriptionRoutes = Router();
 
 /**
@@ -33,11 +41,7 @@ subscriptionRoutes.post('/new-subscription', authorize, createSubscription);
  * @private
  */
 
-subscriptionRoutes.put('/update-subscription/:id', authorize,async (req, res) => {
-    res.send({
-        title: 'Update subscription',
-    })
-});
+subscriptionRoutes.put('/update-subscription/:id', authorize, updateSubscription);
 
 /**
  * @route DELETE /api/v1/subscription/delete-subscription/:id
@@ -45,11 +49,7 @@ subscriptionRoutes.put('/update-subscription/:id', authorize,async (req, res) =>
  * @private
  */
 
-subscriptionRoutes.delete('/delete-subscription/:id', authorize,async (req, res) => {
-    res.send({
-        title: 'Delete subscription',
-    })
-});
+subscriptionRoutes.delete('/delete-subscription/:id', authorize, deleteSubscription);
 
 /**
  * @route GET /api/v1/subscription/upcoming-renewals
@@ -57,10 +57,6 @@ subscriptionRoutes.delete('/delete-subscription/:id', authorize,async (req, res)
  * @private
  */
 
-subscriptionRoutes.get('/upcoming-renewals', authorize,async (req, res) => {
-    res.send({
-        title: 'Get upcoming renewals',
-    })
-});
+subscriptionRoutes.get('/upcoming-renewals', authorize, getUpcomingSubscription);
 
 export default subscriptionRoutes;

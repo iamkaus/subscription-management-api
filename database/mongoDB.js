@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 import { MONGO_DB_URI, NODE_ENV, MONGO_DB_USER_NAME, MONGO_DB_PASSWORD } from "../config/env.js";
 
+/**
+ * Database connection module for MongoDB.
+ * @module database/connection
+ */
+
 if (!MONGO_DB_URI) {
     throw new Error('Please specify the mongoDB URI environment variable inside .env<development/production>.local');
 }
